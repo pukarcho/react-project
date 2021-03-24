@@ -1,10 +1,15 @@
+import { Layout } from 'antd';
+import moment from 'moment';
 
+import './footer.css';
 
-function Footer() {
+const { Footer } = Layout;
+
+function SiteFooter() {
 
     return (
-        <h1>Footer</h1>
+        <Footer style={{ textAlign: 'center' }}><p>Copyright &copy; {moment().format("YYYY")} *TestCompany*, Inc. All Rights Reserved.</p></Footer>
     );
 }
 
-export default Footer;
+export default SiteFooter;

@@ -1,0 +1,9 @@
+.ant-layout-footer{
+	background: #fff;
+	padding: 10px 50px;
+	font-size: 12px;
+}
+
+.ant-layout-footer p{
+	margin-bottom: 0;
+}
