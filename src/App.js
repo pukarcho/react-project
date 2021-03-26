@@ -1,8 +1,11 @@
 import { Fragment, useState } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import './App.css';
 
 import { Layout } from 'antd';
+import { ToastContainer, Slide, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import './App.css';
 
 import { isAuthenticated } from './services/app-auth';
 
@@ -30,19 +33,25 @@ function App() {
 				<Layout className="site-layout">
 					<Content style={{ margin: '0 16px' }}>
 						<div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-						<Switch>
-							<Route path="/home" component={Home} />
-							<Route path="/about-us" component={AboutUs} />
-							{!isAuthenticated() ? (
-								<Fragment>
-									<Route path="/login" render={(props) => <Login auth={auth} {...props}/>} />
-									<Route path="/register" component={Register} />
-								</Fragment>
-							) : null}
-							<Redirect to='/home' />
-						</Switch>
+							<Switch>
+								<Route path="/home" component={Home} />
+								<Route path="/about-us" component={AboutUs} />
+								{!isAuthenticated() ? (
+									<Fragment>
+										<Route path="/login" render={(props) => <Login auth={auth} {...props}/>} />
+										<Route path="/register" render={(props) => <Register auth={auth} {...props}/>} />
+									</Fragment>
+								) : null}
+								<Redirect to='/home' />
+							</Switch>	
 						</div>
 					</Content>
+					<ToastContainer 
+						position={toast.POSITION.BOTTOM_RIGHT}
+						transition={Slide}
+						draggable={false}
+						newestOnTop={true}
+					/>
 					<SiteFooter />
 				</Layout>
 			</Layout> 

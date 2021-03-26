@@ -1,12 +1,11 @@
 import { Link, useHistory } from "react-router-dom";
 import Cookies from 'js-cookie';
 
-import './login.css';
-
 import { postData } from '../../services/app-service';
 
 import { Form, Input, Button, Checkbox } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { toast } from 'react-toastify';
 
 function Login(props) {
     const history = useHistory();
@@ -25,11 +24,13 @@ function Login(props) {
                 Cookies.set('refresh_token', tokens.refresh_token);
                 Cookies.set('username', user.username);
                 
+                toast.success(`Welcome ${user.username}`);
+
                 props.auth();
                 history.push('/home');
             }
             else {
-                alert(tokens.error_description);
+                toast.error(tokens.error_description);
             }
         });
     };

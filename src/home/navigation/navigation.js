@@ -11,6 +11,7 @@ import {
     LoginOutlined,
     UserOutlined, 
 } from '@ant-design/icons';
+import { toast } from 'react-toastify';
 
 const { SubMenu } = Menu;
 
@@ -26,6 +27,7 @@ function Navigation(props) {
             Cookies.remove('refresh_token');
 
             props.auth();
+            toast.success(`Successfully logged out`);
         }
         else{
             setSelectred(event.key);
