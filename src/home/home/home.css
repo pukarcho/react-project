@@ -1,0 +1,23 @@
+.posts-wrapper{
+    background-color: #fff;
+    padding: 16px;
+    border: 1px solid #d3d3d3;
+}
+
+.posts-wrapper .post{
+    border-bottom: 1px solid #d3d3d3;
+}
+
+/* coment */
+.comment-wrapper{
+    border-top: 1px solid #d3d3d3;
+}
+
+.comment-wrapper .anticon{
+    padding-top: 6px;
+    margin-right: 6px;
+}
+
+.comment-wrapper .comment-text{
+    margin-left: 20px;
+}
