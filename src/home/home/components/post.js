@@ -4,13 +4,13 @@ import Comment from './comment';
 
 const { Panel } = Collapse;
 
-function Post() {
+function Post({data}) {
 
     return (
         <div className="post">
             <Row>
                 <Col span={24}>
-                    <h4>Burger</h4> 
+                    <h4>{data.name}</h4> 
                 </Col>              
             </Row>
             <Row>
@@ -18,7 +18,7 @@ function Post() {
                     <Image.PreviewGroup>
                         <Image
                             width={200}
-                            src="https://natashaskitchen.com/wp-content/uploads/2019/04/Best-Burger-4.jpg"
+                            src=""
                             fallback="https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg"
                         />
                         <Image
@@ -30,16 +30,7 @@ function Post() {
                 </Col>
                 <Col span={12} style={{borderLeft: "1px solid #d3d3d3", paddingLeft: "16px"}}>
                     <h5>Description</h5>
-                    <p>
-                        майонеза - 1/2 чаша
-                        чесън - 2 скилдки
-                        телешко филе - 4х120 г
-                        бекон - 4 слайса
-                        питки - 4 бр.
-                        сирене - 4 резена
-                        зелена салата
-                        червено цвекло - 1 чаша мариновано
-                    </p>
+                    <p>{data.description}</p>
                 </Col>
             </Row>
             <Row>

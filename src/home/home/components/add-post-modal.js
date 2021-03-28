@@ -1,6 +1,9 @@
 import { useEfect, useState } from 'react';
 
 import { Modal, Input, Form } from 'antd';
+import { toast } from 'react-toastify';
+
+import { postData } from '../../../services/app-service';
 
 const layout = {
     labelCol: { span: 5 },
@@ -15,7 +18,16 @@ function AddPostModal(props) {
     };
 
     const onSubmit = (event) => {
-        debugger
+        let postObj = {
+            name: event.name,
+            description: event.description
+        }
+        
+        postData('post/add', postObj, function(){
+            toast.success('post is added');
+            form.resetFields();
+            props.hide();
+        });
     };
 
     return (
@@ -23,7 +35,6 @@ function AddPostModal(props) {
             form
               .validateFields()
               .then((values) => {
-                form.resetFields();
                 onSubmit(values);
               })
               .catch((info) => {
@@ -31,10 +42,10 @@ function AddPostModal(props) {
               });
           }} onCancel={handleCancel} okText="Post">
             <Form {...layout} form={form} name="post-form">
-                <Form.Item name="postName" label="Name" rules={[{ required: true }]}>
+                <Form.Item name="name" label="Name" rules={[{ required: true }]}>
                     <Input />
                 </Form.Item>
-                <Form.Item name="postDescription" label="Description">
+                <Form.Item name="description" label="Description">
                     <Input.TextArea rows={6} />
                 </Form.Item>
             </Form>

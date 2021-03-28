@@ -1,11 +1,11 @@
 import { Link, useHistory } from "react-router-dom";
 import Cookies from 'js-cookie';
 
-import { postData } from '../../services/app-service';
-
 import { Form, Input, Button, Checkbox } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { toast } from 'react-toastify';
+
+import { postData } from '../../services/app-service';
 
 function Login(props) {
     const history = useHistory();
