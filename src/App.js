@@ -20,10 +20,10 @@ import SiteFooter from './home/footer/footer';
 const { Content } = Layout;
 
 function App() {
-	const [update, setUpdate] = useState(false);
+	const [, setUpdate] = useState(false);
 
 	const auth = () => {
-		setUpdate(!update);
+		setUpdate(update => !update);
 	};
 
   	return (

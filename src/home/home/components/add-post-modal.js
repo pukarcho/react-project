@@ -31,16 +31,7 @@ function AddPostModal(props) {
     };
 
     return (
-        <Modal title="Add Post" visible={props && props.show} onOk={() => {
-            form
-              .validateFields()
-              .then((values) => {
-                onSubmit(values);
-              })
-              .catch((info) => {
-                console.log('Validate Failed:', info);
-              });
-          }} onCancel={handleCancel} okText="Post">
+        <Modal title="Add Post" visible={props && props.show} onOk={() => { form.submit() }} onCancel={handleCancel} okText="Post">
             <Form {...layout} form={form} name="post-form">
                 <Form.Item name="name" label="Name" rules={[{ required: true }]}>
                     <Input />

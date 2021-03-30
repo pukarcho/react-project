@@ -1,8 +1,9 @@
-import { Image, Collapse, Row, Col } from 'antd';
+import { Image, Collapse, Row, Col, Input, Button } from 'antd';
 
 import Comment from './comment';
 
 const { Panel } = Collapse;
+const { TextArea } = Input;
 
 function Post({data}) {
 
@@ -42,6 +43,12 @@ function Post({data}) {
                             <Comment />
                         </Panel>
                     </Collapse>
+                </Col>
+            </Row>
+            <Row>
+                <Col span={24} style={{padding: "0 12px 12px 12px"}}>
+                    <TextArea rows={3} className="comment-input" placeholder="Write comment..." style={{width: "calc(100% - 76px)"}}/>
+                    <Button type="primary" style={{height: "100%"}}>Submit</Button>
                 </Col>
             </Row>
         </div>

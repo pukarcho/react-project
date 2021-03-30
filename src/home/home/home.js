@@ -14,11 +14,12 @@ import AddPostModal from './components/add-post-modal';
 
 function Home() {
     const [addPostModalShow, setAddPostModalShow] = useState(false);
+    const [searchValue, setSearchValue] = useState('');
     const [posts, setPosts] = useState({});
     
     useEffect(() => {
         if(!addPostModalShow){
-            postData('post/getAll', {}, function(data){
+            postData('post/getAll', '', function(data){
                 setPosts(data);
             });
         }
@@ -32,8 +33,8 @@ function Home() {
         setAddPostModalShow(true);
     };
 
-    const onSearch = () => {
-
+    const onSearch = (event) => {
+        setSearchValue(event.currentTarget.value);
     };
 
     return (
@@ -52,7 +53,7 @@ function Home() {
                     <Row>
                         <Col span={24}>
                             <div className="posts-wrapper">
-                                {Object.keys(posts).length !== 0 ? posts.map((post, key) => (
+                                {Object.keys(posts).length !== 0 ? posts.filter(a => a.name.toLowerCase().includes(searchValue.toLowerCase())).map((post, key) => (
                                     <Post data={post} />
                                 )) : null}
                             </div>
