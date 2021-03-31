@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
 import Cookies from 'js-cookie';
 
-import { isAuthenticated } from '../../services/app-auth';
+import { isAuthenticated } from '../../helpers/app-auth';
 
 import { Menu } from 'antd';
 import { 
@@ -42,6 +42,7 @@ function Navigation(props) {
             
             {isAuthenticated() ? (
                 <SubMenu key="SubMenu" icon={<UserOutlined />} title={username} className="pull-right">
+                    <Menu.Item key="settings">Settings</Menu.Item>
                     <Menu.Item key="logout">Logout</Menu.Item>
                 </SubMenu>
             ) : (
