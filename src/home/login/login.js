@@ -1,4 +1,4 @@
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Cookies from 'js-cookie';
 
 import { Form, Input, Button, Checkbox } from 'antd';
@@ -8,7 +8,6 @@ import { toast } from 'react-toastify';
 import { postData } from '../../services/app-service';
 
 function Login(props) {
-    const history = useHistory();
 
     const formSubmit = (event) => {
         let user = {
@@ -27,7 +26,6 @@ function Login(props) {
                 toast.success(`Welcome ${user.username}`);
 
                 props.auth();
-                history.push('/home');
             }
             else {
                 toast.error(tokens.error_description);

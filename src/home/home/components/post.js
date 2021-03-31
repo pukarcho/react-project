@@ -1,11 +1,14 @@
 import { Image, Collapse, Row, Col, Input, Button } from 'antd';
 
+import { isAuthenticated } from '../../../services/app-auth';
+
 import Comment from './comment';
 
 const { Panel } = Collapse;
 const { TextArea } = Input;
 
 function Post({data}) {
+    let isAuth = isAuthenticated();
 
     return (
         <div className="post">
@@ -47,8 +50,8 @@ function Post({data}) {
             </Row>
             <Row>
                 <Col span={24} style={{padding: "0 12px 12px 12px"}}>
-                    <TextArea rows={3} className="comment-input" placeholder="Write comment..." style={{width: "calc(100% - 76px)"}}/>
-                    <Button type="primary" style={{height: "100%"}}>Submit</Button>
+                    <TextArea rows={3} className="comment-input" placeholder={isAuth ? "Write comment..." : "To write a comment, log in first!"} disabled={!isAuth} style={{width: "calc(100% - 76px)"}}/>
+                    <Button type="primary" disabled={!isAuth} style={{height: "100%"}}>Submit</Button>
                 </Col>
             </Row>
         </div>

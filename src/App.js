@@ -20,7 +20,7 @@ import SiteFooter from './home/footer/footer';
 const { Content } = Layout;
 
 function App() {
-	const [, setUpdate] = useState(false);
+	const [update, setUpdate] = useState(false);
 
 	const auth = () => {
 		setUpdate(update => !update);
@@ -41,7 +41,11 @@ function App() {
 										<Route path="/login" render={(props) => <Login auth={auth} {...props}/>} />
 										<Route path="/register" render={(props) => <Register auth={auth} {...props}/>} />
 									</Fragment>
-								) : null}
+								) : (
+									<Fragment>
+										<Route path="/settings" component={AboutUs} />
+									</Fragment>
+								)}
 								<Redirect to='/home' />
 							</Switch>	
 						</div>

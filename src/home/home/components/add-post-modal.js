@@ -3,7 +3,7 @@ import { useEfect, useState } from 'react';
 import { Modal, Input, Form } from 'antd';
 import { toast } from 'react-toastify';
 
-import { postData } from '../../../services/app-service';
+import { postAuthData } from '../../../services/app-service';
 
 const layout = {
     labelCol: { span: 5 },
@@ -23,7 +23,7 @@ function AddPostModal(props) {
             description: event.description
         }
         
-        postData('post/add', postObj, function(){
+        postAuthData('post/add', postObj, function(){
             toast.success('post is added');
             form.resetFields();
             props.hide();
@@ -32,7 +32,7 @@ function AddPostModal(props) {
 
     return (
         <Modal title="Add Post" visible={props && props.show} onOk={() => { form.submit() }} onCancel={handleCancel} okText="Post">
-            <Form {...layout} form={form} name="post-form">
+            <Form {...layout} form={form} name="post-form" onFinish={onSubmit}>
                 <Form.Item name="name" label="Name" rules={[{ required: true }]}>
                     <Input />
                 </Form.Item>
