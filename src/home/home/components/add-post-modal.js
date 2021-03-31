@@ -3,7 +3,7 @@ import { useEfect, useState } from 'react';
 import { Modal, Input, Form } from 'antd';
 import { toast } from 'react-toastify';
 
-import { postAuthData } from '../../../services/app-service';
+import { postAuthData } from '../../../helpers/app-service';
 
 const layout = {
     labelCol: { span: 5 },

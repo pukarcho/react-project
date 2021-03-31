@@ -1,0 +1,20 @@
+.Toastify__toast-body {
+    font-size: 13px;
+  }
+  
+  .Toastify__toast-container--bottom-right {
+    bottom: 3em;
+    right: 2em;
+  }
+  
+  .Toastify__toast--success {
+    background: #9fc089;
+  }
+  
+  .Toastify__toast--info {
+    background: #FFA500;
+  }
+  
+  .Toastify__toast--error {
+    background: #cc0000;
+  }

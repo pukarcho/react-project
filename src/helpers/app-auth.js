@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import Cookies from 'js-cookie';
 import { Route } from "react-router-dom";
-import { postData, postAuthData } from './app-service';
 
 
 let apiUrl = 'https://localhost:44337/api/';
+let homePageUrl = 'http://localhost:3000/home';
 
 export const getAccessToken = () => Cookies.get('access_token');
 export const getRefreshToken = () => Cookies.get('refresh_token');
@@ -37,6 +37,7 @@ export const authenticate = async () => {
             {
                 Cookies.remove('access_token');
                 Cookies.remove('refresh_token');
+                redirectToHome();
             }
             else {
                 const expires_in = new Date(new Date().getTime() + (data.expires_in * 1000));
@@ -49,8 +50,13 @@ export const authenticate = async () => {
     else {
         Cookies.remove('access_token');
         Cookies.remove('refresh_token');
+        redirectToHome();
         return false;
     }
+};
+
+const redirectToHome = () => {
+    window.location.assign(homePageUrl);
 };
 
 export const AuthenticatedRoute = ({ component: Component, exact, path }) => (

@@ -1,6 +1,6 @@
 import { Image, Collapse, Row, Col, Input, Button } from 'antd';
 
-import { isAuthenticated } from '../../../services/app-auth';
+import { isAuthenticated } from '../../../helpers/app-auth';
 
 import Comment from './comment';
 

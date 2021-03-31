@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import Cookies from 'js-cookie';
 
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { toast } from 'react-toastify';
 
-import { postData } from '../../services/app-service';
+import { postData } from '../../helpers/app-service';
 
 function Login(props) {
 
@@ -25,6 +25,7 @@ function Login(props) {
                 
                 toast.success(`Welcome ${user.username}`);
 
+                props.history.push('/home');
                 props.auth();
             }
             else {
@@ -32,6 +33,10 @@ function Login(props) {
             }
         });
     };
+
+    const onForgotPasswordClick = () => {
+        toast.info('Forgot password is still in development');
+    }
 
     return (
         <div className="login-wrapper">
@@ -43,7 +48,7 @@ function Login(props) {
                     <Input prefix={<LockOutlined className="site-form-item-icon" />} type="password" placeholder="Password" />
                 </Form.Item>
                 <Form.Item>
-                    <a className="login-form-forgot" href="">Forgot password</a>
+                    <a className="login-form-forgot" onClick={onForgotPasswordClick}>Forgot password</a>
 
                     <div className="pull-right">
                         <Button type="primary" htmlType="submit" className="login-form-button">Log in</Button>

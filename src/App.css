@@ -4,13 +4,15 @@
 
 /* auth pages */
 .login-wrapper,
-.register-wrapper{
+.register-wrapper,
+.settings-wrapper{
     padding-top: 15%;
     padding-left: calc(50% - 200px);
 }
 
 .login-wrapper #login,
-.register-wrapper #register{
+.register-wrapper #register,
+.settings-wrapper #settings{
     width: 400px;
 }
 

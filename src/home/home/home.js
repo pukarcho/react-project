@@ -6,8 +6,8 @@ import {
 } from '@ant-design/icons';
 
 import './home.css';
-import { isAuthenticated } from '../../services/app-auth';
-import { postData } from '../../services/app-service';
+import { isAuthenticated } from '../../helpers/app-auth';
+import { postData } from '../../helpers/app-service';
 
 import Post from './components/post';
 import AddPostModal from './components/add-post-modal';
