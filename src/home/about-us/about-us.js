@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { Row, Col, Tabs } from 'antd';
+import { PhoneOutlined, MailOutlined, HomeOutlined } from '@ant-design/icons';
 
 import './about-us.css'
 
@@ -48,7 +49,12 @@ function AboutUs() {
                             Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                         </TabPane>
                         <TabPane tab="Contacts" key="contacts">
-                            Veliko Tarnovo
+                            <ul className="contacts-list">
+                                <li><MailOutlined />  test@gmail.com</li>
+                                <li><PhoneOutlined />  (+359) 087 865 4654</li>
+                                <li><HomeOutlined />  Велико Търново, България</li>
+                                <li><HomeOutlined />  Оборище 18</li>
+                            </ul>
                         </TabPane>
                     </Tabs>
                 </div>

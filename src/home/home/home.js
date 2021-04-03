@@ -1,9 +1,7 @@
 import { useState, useEffect, Fragment } from 'react';
 
 import { Row, Col, Button, Input } from 'antd';
-import { 
-    SearchOutlined,
-} from '@ant-design/icons';
+import { SearchOutlined, } from '@ant-design/icons';
 
 import './home.css';
 import { isAuthenticated } from '../../helpers/app-auth';
@@ -15,23 +13,29 @@ import AddPostModal from './components/add-post-modal';
 function Home() {
     const [addPostModalShow, setAddPostModalShow] = useState(false);
     const [searchValue, setSearchValue] = useState('');
-    const [activateSrarch, setActivateSrarch] = useState(false);
+    const [activateSearch, setActivateSearch] = useState(false);
+    const [allowSearch, setAllowSearch] = useState(false);
     const [posts, setPosts] = useState({});
+
+    useEffect(() => {
+        if(allowSearch){
+            const timeout = setTimeout(() => {
+                setActivateSearch(state => !state);
+            }, 500);
+            return () => clearTimeout(timeout);
+        }
+        else{
+            setAllowSearch(true);
+        }
+    }, [searchValue]);
     
     useEffect(() => {
         if(!addPostModalShow){
-            postData('post/getAll', searchValue, function(data){
+            postData('post/get_all', searchValue, function(data){
                 setPosts(data);
             });
         }
-    }, [addPostModalShow, activateSrarch]);
-
-    useEffect(() => {
-        const timeout = setTimeout(() => {
-            setActivateSrarch(state => !state);
-        }, 500);
-        return () => clearTimeout(timeout);
-    }, [searchValue]);
+    }, [addPostModalShow, activateSearch]);    
 
     const modalHide = () => {
         setAddPostModalShow(false);
@@ -48,19 +52,13 @@ function Home() {
     return (
         <div className="home-wrapper">
             <Row>
-                <Col span={12} offset={6}>
+                <Col span={14} offset={5}>
                     <Row>
                         <Col span={24}>
                             <h3 style={{textAlign: "center"}}>Posts</h3>
                             <div style={{marginBottom: "15px"}}>
-                                {isAuthenticated() ? (
-                                    <Fragment>
-                                        <Input  placeholder="Search..." prefix={<SearchOutlined />} onChange={onSearch} style={{marginRight: "8px", width: "calc(100% - 97px)"}} />
-                                        <Button type="primary" onClick={modalShow}>Add post</Button>
-                                    </Fragment>
-                                ) : (
-                                    <Input  placeholder="Search..." prefix={<SearchOutlined />} onChange={onSearch} style={{marginRight: "8px"}} />
-                                )}
+                                <Input  placeholder="Search..." prefix={<SearchOutlined />} onChange={onSearch} style={{marginRight: "8px", width: "calc(100% - 97px)"}} />
+                                <Button type="primary" onClick={modalShow} disabled={isAuthenticated() ? false : true}>Add post</Button>
                             </div>
                         </Col>
                     </Row>

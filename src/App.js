@@ -21,10 +21,10 @@ import Toastify from './shared/toastify/toastify';
 const { Content } = Layout;
 
 function App() {
-	const [update, setUpdate] = useState(false);
+	const [, setUpdate] = useState(false);
 
 	const auth = () => {
-		setUpdate(update => !update);
+		setUpdate(state => !state);
 	};
 
   	return (
@@ -35,7 +35,7 @@ function App() {
 					<Content style={{ margin: '0 16px' }}>
 						<div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
 							<Switch>
-								<Route path="/home" component={Home} />
+								<Route exact path="/" component={Home} />
 								<Route path="/about-us" component={AboutUs} />
 								{!isAuthenticated() ? (
 									<Fragment>
@@ -47,7 +47,7 @@ function App() {
 										<AuthenticatedRoute path="/settings" component={Settings} />
 									</Fragment>
 								)}
-								<Redirect to='/home' />
+								<Redirect to='/' />
 							</Switch>	
 						</div>
 					</Content>

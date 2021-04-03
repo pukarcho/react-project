@@ -25,7 +25,7 @@ function Login(props) {
                 
                 toast.success(`Welcome ${user.username}`);
 
-                props.history.push('/home');
+                props.history.push('/');
                 props.auth();
             }
             else {
@@ -41,6 +41,7 @@ function Login(props) {
     return (
         <div className="login-wrapper">
             <Form name="login" className="login-form" initialValues={{ remember: true, }} onFinish={formSubmit}>
+                <h3 style={{textAlign: "center"}}>Login</h3>
                 <Form.Item name="username" rules={[{ required: true, message: 'Please input your Username!', },]}>
                     <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
                 </Form.Item>

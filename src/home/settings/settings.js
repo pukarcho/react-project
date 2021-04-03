@@ -25,6 +25,7 @@ function Settings() {
     return (
         <div className="settings-wrapper">
             <Form name="settings" className="settings-form" initialValues={{ remember: true, }} onFinish={formSubmit}>
+                <h3 style={{textAlign: "center"}}>Change password</h3>
                 <Form.Item name="password" rules={[{ required: true, message: 'Please input your Password!', },]}>
                     <Input prefix={<LockOutlined className="site-form-item-icon" />} type="password" placeholder="Password" />
                 </Form.Item>

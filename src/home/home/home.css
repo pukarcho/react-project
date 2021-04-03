@@ -9,6 +9,18 @@
     margin-bottom: 15px;
 }
 
+.posts-wrapper .post .ant-upload-picture-card-wrapper{
+    margin-left: 32px;
+}
+
+#post-form .ant-upload-list-item-actions a{
+    display: none;
+}
+
+#post-form .antd-popover{
+    display: none;
+}
+
 /* coment */
 .comment-wrapper{
     border-top: 1px solid #d3d3d3;

@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 
 import { postData } from '../../helpers/app-service';
 
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { toast } from 'react-toastify';
 
@@ -37,6 +37,7 @@ function Register(props) {
     return (
         <div className="register-wrapper">
             <Form name="register" className="register-form" initialValues={{ remember: true, }} onFinish={formSubmit}>
+                <h3 style={{textAlign: "center"}}>Register</h3>
                 <Form.Item name="username" rules={[{ required: true, message: 'Please input your Username!', },]}>
                     <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
                 </Form.Item>
