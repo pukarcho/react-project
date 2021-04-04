@@ -9,6 +9,11 @@
     margin-bottom: 15px;
 }
 
+.posts-wrapper .post .post-edit-btns{
+    float: right;
+    margin-top: 6px;
+}
+
 .posts-wrapper .post .ant-upload-picture-card-wrapper{
     margin-left: 32px;
 }

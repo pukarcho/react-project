@@ -67,7 +67,7 @@ function Home() {
                             <div className="posts-wrapper">
                                 {Object.keys(posts).length !== 0 ? posts.map((post, key) => (
                                     <Post key={post.id} data={post} />
-                                )) : null}
+                                )) : <p style={{textAlign: "center"}}>No posts</p>}
                             </div>
                         </Col>
                     </Row>

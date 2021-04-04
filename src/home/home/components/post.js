@@ -1,21 +1,26 @@
 import { useState } from 'react';
 
-import { Image, Collapse, Row, Col, Input, Button, Form } from 'antd';
+import { Collapse, Row, Col, Input, Button, Form } from 'antd';
 import { toast } from 'react-toastify';
 import Scrollbars from 'react-custom-scrollbars';
+import Cookies from 'js-cookie';
 
 import { isAuthenticated } from '../../../helpers/app-auth';
 import { postAuthData, postData } from '../../../helpers/app-service';
 
 import Comment from './comment';
+import Gallery from './gallery';
+import ConfirmationModal from '../../../shared/confirmation-modal/confirmation-modal';
 
 const { Panel } = Collapse;
-const { TextArea } = Input;
 
 function Post({data}) {
-    let isAuth = isAuthenticated();
     const [commentText, setCommentText] = useState("");
     const [comments, setComments] = useState([]);
+    const [showRemoveComfirmation, setShowRemoveComfirmation] = useState(false);
+
+    let isAuth = isAuthenticated();
+    const username = Cookies.get('username');
 
     const addComment = () => {
         let postObj = {
@@ -42,62 +47,37 @@ function Post({data}) {
         });
     }
 
+    const confirmationResponse = (answer) => {
+        setShowRemoveComfirmation(false);
+        if(answer){
+            postAuthData('post/remove', data.id, function(){
+                debugger
+            });
+        }
+    };
+
     return (
         <div className="post">
             <Row>
                 <Col span={24}>
                     <h4 style={{display: "inline-block"}}>{data.name}</h4>
-                    <span style={{float: "right", marginTop: "10px"}}>Posted by: <strong>{data.postBy}</strong></span>
+                    {isAuth && data.postBy === username ? (
+                        <div className="post-edit-btns">
+                            <Button style={{marginRight: "6px"}}>Edit</Button>
+                            <Button onClick={() => setShowRemoveComfirmation(true)}>Remove</Button>
+                        </div>
+                    ) : (
+                        <span style={{float: "right", marginTop: "10px"}}>Posted by: <strong>{data.postBy}</strong></span>
+                    )}
                 </Col>              
             </Row>
             <Row>
                 <Col span={12} style={{padding: "12px"}}>
-                    <Image.PreviewGroup>
-                        <Row>
-                            <Col span={12}>
-                                <Image
-                                    width={160}
-                                    height={120}
-                                    style={{objectFit: "contain"}}
-                                    src={data.images && typeof data.images[0] !== "undefined" ? data.images[0] : "nope"}
-                                    fallback="https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg"
-                                />
-                            </Col>
-                            <Col span={12}>
-                                <Image
-                                    width="100%"
-                                    height="100%"
-                                    style={{objectFit: "contain"}}
-                                    src={data.images && typeof data.images[1] !== "undefined" ? data.images[1] : "nope"}
-                                    fallback="https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg"
-                                />
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col span={12}>
-                                <Image
-                                    width={160}
-                                    height={120}
-                                    style={{objectFit: "contain"}}
-                                    src={data.images && typeof data.images[2] !== "undefined" ? data.images[2] : "nope"}
-                                    fallback="https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg"
-                                />
-                            </Col>
-                            <Col span={12}>
-                                <Image
-                                    width={160}
-                                    height={120}
-                                    style={{objectFit: "contain"}}
-                                    src={data.images && typeof data.images[3] !== "undefined" ? data.images[3] : "nope"}
-                                    fallback="https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg"
-                                />
-                            </Col>
-                        </Row>
-                    </Image.PreviewGroup>
+                    <Gallery data={data} />
                 </Col>
                 <Col span={12} style={{borderLeft: "1px solid #d3d3d3", paddingLeft: "16px"}}>
                     <h5>Description</h5>
-                    <Scrollbars hideTracksWhenNotNeeded={true} style={{width: '100%', height:'285px'}}>
+                    <Scrollbars hideTracksWhenNotNeeded={true} style={{width: '100%', height:'455px'}}>
                         <p>{data.description}</p>
                     </Scrollbars>
                 </Col>
@@ -117,9 +97,9 @@ function Post({data}) {
             </Row>
             <Row>
                 <Col span={24} style={{padding: "0 12px 12px 12px"}}>
-                    <Form name={`comment${data.id}`}  className="comment-form" initialValues={{ remember: true, }} onFinish={addComment}>
+                    <Form name={`comment${data.id}`} className="comment-form" onFinish={addComment}>
                         <Form.Item rules={[{ required: true, message: 'Please input your Comment!', },]} style={{width: "100%"}}>
-                            <TextArea 
+                            <Input.TextArea 
                                 rows={3}
                                 className="comment-input"
                                 placeholder={isAuth ? "Write comment..." : "To write a comment, log in first"}
@@ -133,6 +113,7 @@ function Post({data}) {
                     </Form>
                 </Col>
             </Row>
+            <ConfirmationModal show={showRemoveComfirmation} message={`Are you sure you want to delete "${data.name}"`} response={confirmationResponse} />
         </div>
     );
 }

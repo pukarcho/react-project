@@ -75,7 +75,7 @@ function AddPostModal(props) {
     return (
         <Modal title="Add Post" visible={props && props.show} onOk={() => { form.submit() }} onCancel={handleCancel} okText="Post">
             <Form {...layout} form={form} name="post-form" onFinish={onSubmit}>
-                <Form.Item name="name" label="Name" rules={[{ required: true }]}>
+                <Form.Item name="name" label="Name" rules={[{ required: true, message: 'Please input post Name!', }]}>
                     <Input />
                 </Form.Item>
                 <Form.Item name="description" label="Description">
@@ -86,6 +86,7 @@ function AddPostModal(props) {
                     fileList={fileList}
                     onChange={handleChange}
                     onPreview={null}
+                    beforeUpload={() => {return false}}
                 >
                     {fileList.length >= 4 ? null : uploadButton}
                 </Upload>

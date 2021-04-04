@@ -19,7 +19,7 @@ function Weather() {
     
     return (
         <div style={{marginTop: "30px"}}>
-            <p>Времето във Велико Търново:</p>
+            <p>Weather in Veliko Tarnovo:</p>
             {Object.keys(weatherData).length !== 0 ? (
                 <p><strong>{weatherData.main.temp} &#8451;</strong> - { weatherData.weather[0].description}</p>
             ) : null}
