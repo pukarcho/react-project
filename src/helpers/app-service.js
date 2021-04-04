@@ -85,20 +85,9 @@ export async function postAuthData(url = '', data = {}, onSuccess, onFailure) {
             referrerPolicy: 'no-referrer', // no-referrer, *client
             body: JSON.stringify(data) // body data type must match "Content-Type" header
         })
-        //when returning a task it returned empty body and resulted in error
-        //the below code is the best way to handle this
-        .then((response) => {
-            if(response.status === 403)
-            {
-                return JSON.stringify({"error": "Unauthorized", "error_description" : "You are not authorized to perform this operation."});
-            }
-            else {
-                return response.text();
-            }
-            })
+        .then((response) => response.text())
         .then((data) => data ? JSON.parse(data) : {})
         .then((data) => {
-            //data === null check is for when we return null from backend
             if(data === null || (!data.error && !data.userFriendlyMessage)){
                 onSuccess(data);
             }
