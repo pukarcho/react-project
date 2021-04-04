@@ -26,7 +26,7 @@ function Register(props) {
                 toast.success(`Welcome ${user.username}`);
 
                 props.auth();
-                history.push('/home');
+                history.push('/');
             }
             else {
                 toast.error(tokens.error_description);

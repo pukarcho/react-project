@@ -14,22 +14,22 @@ import ConfirmationModal from '../../../shared/confirmation-modal/confirmation-m
 
 const { Panel } = Collapse;
 
-function Post({data}) {
-    const [commentText, setCommentText] = useState("");
+function Post({data, edit, update}) {
     const [comments, setComments] = useState([]);
     const [showRemoveComfirmation, setShowRemoveComfirmation] = useState(false);
+    const [form] = Form.useForm();
 
     let isAuth = isAuthenticated();
     const username = Cookies.get('username');
 
-    const addComment = () => {
+    const addComment = (event) => {
         let postObj = {
             postId: data.id,
-            commentText: commentText
+            commentText: event.commentText
         };
 
         postAuthData("post/add_comment", postObj, function(){
-            setCommentText('');
+            form.resetFields();
             getComments(data.id);
             toast.success('Comment is added');
         });
@@ -51,7 +51,8 @@ function Post({data}) {
         setShowRemoveComfirmation(false);
         if(answer){
             postAuthData('post/remove', data.id, function(){
-                debugger
+                toast.success('Post is removed');
+                update();
             });
         }
     };
@@ -63,7 +64,7 @@ function Post({data}) {
                     <h4 style={{display: "inline-block"}}>{data.name}</h4>
                     {isAuth && data.postBy === username ? (
                         <div className="post-edit-btns">
-                            <Button style={{marginRight: "6px"}}>Edit</Button>
+                            <Button onClick={() => edit(data.id)} style={{marginRight: "6px"}}>Edit</Button>
                             <Button onClick={() => setShowRemoveComfirmation(true)}>Remove</Button>
                         </div>
                     ) : (
@@ -97,17 +98,16 @@ function Post({data}) {
             </Row>
             <Row>
                 <Col span={24} style={{padding: "0 12px 12px 12px"}}>
-                    <Form name={`comment${data.id}`} className="comment-form" onFinish={addComment}>
-                        <Form.Item rules={[{ required: true, message: 'Please input your Comment!', },]} style={{width: "100%"}}>
+                    <Form form={form} name={`comment${data.id}`} className="comment-form" onFinish={addComment}>
+                        <Form.Item name={`commentText`} rules={[{ required: true, message: 'Please input your Comment!', },]} style={{width: "calc(100% - 76px)", display: "inline-block"}}>
                             <Input.TextArea 
                                 rows={3}
                                 className="comment-input"
                                 placeholder={isAuth ? "Write comment..." : "To write a comment, log in first"}
                                 disabled={!isAuth}
-                                value={commentText}
-                                onChange={(event) => setCommentText(event.currentTarget.value)}
-                                style={{width: "calc(100% - 76px)"}}
                             />
+                        </Form.Item>
+                        <Form.Item style={{display: "inline-block"}}>
                             <Button type="primary" htmlType="submit" disabled={!isAuth} style={{height: "75px"}}>Submit</Button>
                         </Form.Item>
                     </Form>
