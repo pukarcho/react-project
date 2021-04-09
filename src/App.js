@@ -17,6 +17,7 @@ import Navigation from './home/navigation/navigation';
 import SiteFooter from './home/footer/footer';
 
 import Toastify from './shared/toastify/toastify';
+import ErrorBoundary from './home/error-boundries/error-boundries';
 
 const { Content } = Layout;
 
@@ -30,30 +31,32 @@ function App() {
   	return (
 		<div>
 			<Layout style={{ minHeight: '100vh' }}>
-				<Navigation auth={auth} />
-				<Layout className="site-layout">
-					<Content style={{ margin: '0 16px' }}>
-						<div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-							<Switch>
-								<Route exact path="/" component={Home} />
-								<Route path="/about-us" component={AboutUs} />
-								{!isAuthenticated() ? (
-									<Fragment>
-										<Route path="/login" render={(props) => <Login auth={auth} {...props}/>} />
-										<Route path="/register" render={(props) => <Register auth={auth} {...props}/>} />
-									</Fragment>
-								) : (
-									<Fragment>
-										<AuthenticatedRoute path="/settings" component={Settings} />
-									</Fragment>
-								)}
-								<Redirect to='/' />
-							</Switch>	
-						</div>
-					</Content>
-					<Toastify />
-					<SiteFooter />
-				</Layout>
+					<Navigation auth={auth} />
+					<Layout className="site-layout">
+						<Content style={{ margin: '0 16px' }}>
+							<div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
+								<ErrorBoundary>
+									<Switch>
+										<Route exact path="/" component={Home} />
+										<Route path="/about-us" component={AboutUs} />
+										{!isAuthenticated() ? (
+											<Fragment>
+												<Route path="/login" render={(props) => <Login auth={auth} {...props}/>} />
+												<Route path="/register" render={(props) => <Register auth={auth} {...props}/>} />
+											</Fragment>
+										) : (
+											<Fragment>
+												<AuthenticatedRoute path="/settings" component={Settings} />
+											</Fragment>
+										)}
+										<Redirect to='/' />
+									</Switch>	
+								</ErrorBoundary>
+							</div>
+						</Content>
+						<SiteFooter />
+					</Layout>
+				<Toastify />
 			</Layout> 
 		</div>
   	);
